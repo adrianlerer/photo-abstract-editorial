@@ -5,6 +5,7 @@ const browser = await chromium.launch({
   headless: true,
   executablePath: "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome",
 });
+const baseUrl = process.env.BASE_URL ?? "http://localhost:3000";
 
 const errors = [];
 const mockComposition = {
@@ -27,7 +28,7 @@ page.on("console", (message) => {
 });
 page.on("pageerror", (error) => errors.push(error.message));
 await page.route("**/api/analyze", (route) => route.fulfill({ status: 200, contentType: "application/json", body: JSON.stringify(mockComposition) }));
-await page.goto("http://localhost:3000", { waitUntil: "networkidle" });
+await page.goto(baseUrl, { waitUntil: "networkidle" });
 
 if (!(await page.getByRole("heading", { name: "Photo Abstract Editorial" }).isVisible())) throw new Error("Missing product heading");
 if (!(await page.getByRole("button", { name: /Drop a photograph here/ }).isVisible())) throw new Error("Missing upload control");
