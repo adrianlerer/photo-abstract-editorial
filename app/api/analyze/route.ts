@@ -1,4 +1,5 @@
 import { generateText, Output } from "ai";
+import { openai } from "@ai-sdk/openai";
 import { NextResponse } from "next/server";
 import { compositionSchema, isFormat } from "@/lib/composition";
 import { EDITORIAL_PROMPT } from "@/lib/editorial-prompt";
@@ -27,7 +28,7 @@ export async function POST(request: Request) {
 
     const imageData = new Uint8Array(await photo.arrayBuffer());
     const { output } = await generateText({
-      model: "google/gemini-3-flash",
+      model: openai("gpt-5.6-luna"),
       output: Output.object({ schema: compositionSchema }),
       messages: [
         {
