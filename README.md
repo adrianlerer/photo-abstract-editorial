@@ -8,6 +8,31 @@ douyin: 12919593  xiaohongshu: Cclz_9
 
 # Photo Abstract Editorial
 
+This repository now includes a private, single-user web interface for creating photo-faithful editorial compositions. The original photograph is composited locally in the browser; AI produces only a structured plan for the abstract panel and title.
+
+## Web app
+
+### Local development
+
+```bash
+npm install
+vercel link
+vercel env pull .env.local --yes
+npm run dev
+```
+
+The app uses Vercel AI Gateway through the AI SDK. Uploaded photographs are sent for visual analysis but are not persisted by the application. Finished PNG files are rendered and downloaded entirely in the browser.
+
+### Verification
+
+```bash
+npm test
+npm run typecheck
+npm run build
+```
+
+The web app and the upstream Skill remain limited to personal, educational, research, and non-commercial use under [LICENSE.md](LICENSE.md).
+
 将一张照片转化为“原始摄影区域 + 抽象记忆面板 + 诗意英文标题”的竖向编辑作品的 Codex Skill。它保留照片的真实内容，并仅从照片本身提炼空间关系、构图节奏和色彩关系；它不是滤镜、照片重画或风格迁移。
 
 The skill includes the complete prompt in both Chinese and English.
